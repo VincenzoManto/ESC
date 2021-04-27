@@ -17,7 +17,7 @@ features = NaN(1536,10);
 % Loop over the multilevel
 for nLevel = 1:10
     
-    disp("Livello " + nLevel)
+    %disp("Livello " + nLevel)
 
     
     % Spiral pattern based feature extraction function
