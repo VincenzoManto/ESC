@@ -1,6 +1,6 @@
 predicteds = {};
-real = {'Keyboard typing','Coughing','Snoring','Sneezing','Door knock','Dog','Door'};
-for i = 1:length(real)
+real = {};
+for i = 1:10
 recObj = audiorecorder(48000,16,1);
 
 disp('Inizio')
@@ -10,9 +10,9 @@ y = getaudiodata(recObj);
 
 spe = enviromentalSoundClassification(y);%creo feature vector mediante Spiral
 %play(recObj);
-load("release/lastClassifier");
+load("release/svmClassifier");
 %plot(y);
-load("release/selidx");
+load("release/selidxSVM");
 spe = spe(:,selidx);
 
 d=dir('../ESC-50');%directory dove avete salvato il dataset
@@ -26,6 +26,8 @@ end
 
 predicted = predict(classifier.Classifier,spe);
 predicteds = [predicteds, nm(predicted)];
-disp("Secondo me è un " + nm(predicted))
+disp("Secondo me è un " + nm(predicted));
+%x = input(":",'s');
+%real = [real, x];
 end
 confusionchart(real,predicteds);
