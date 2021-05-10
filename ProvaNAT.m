@@ -2,7 +2,7 @@ predicteds = {};
 
 
 load("release/selidxSVM");
-load("C:\Users\vincm\Desktop\Vincenzo\Universita\3.2\AI\Progetto\Spiral\release\svmClassifier");
+load("C:\Users\vincm\Desktop\Vincenzo\Universita\3.2\AI\Progetto\Spiral\release\ensembleClassifier");
 
 d=dir('../ESC-50');%directory dove avete salvato il dataset
 d(ismember( {d.name}, {'.', '..'})) = [];  %remove . and ..
