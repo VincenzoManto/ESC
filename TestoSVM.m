@@ -31,7 +31,7 @@ classifierType = "svm"
 %save("ncanormalized","mdl")
 load("ncanormalized")
 
-SVMfeatures = [1900 2000 2100 2200];
+SVMfeatures = [1900];
 features = SVMfeatures;
 
 for i = 1:length(features)
