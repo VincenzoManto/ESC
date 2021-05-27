@@ -1,4 +1,4 @@
-function [trainedClassifier, validationAccuracy] = trainClassifierSVM(trainingData, responseData,features)
+function trainedClassifier = trainClassifierSVM(trainingData, responseData,features)
 % [trainedClassifier, validationAccuracy] = trainClassifier(trainingData,
 % responseData)
 % Returns a trained classifier and its accuracy. This code recreates the
@@ -68,16 +68,11 @@ response = responseData;
 template = templateSVM(...
     'GapTolerance',5e-1,...
     'IterationLimit',1e8,...
-    'ClipAlphas',false,...
     'Standardize', true);
 
-    %'OptimizeHyperparameters','auto',...
-    %'HyperparameterOptimizationOptions',struct('AcquisitionFunctionName',...
-    %'expected-improvement-plus','MaxTime',2700),...
 classificationSVM = fitcecoc(...
     predictors, ...
     response, ...
-    'Options',statset('UseParallel',true),...
     'FitPosterior',true,...
     'Learners', template, ...
     'ClassNames', [1; 2; 3; 4; 5; 6; 7; 8; 9; 10; 11; 12; 13; 14; 15; 16; 17; 18; 19; 20; 21; 22; 23; 24; 25; 26; 27; 28; 29; 30; 31; 32; 33; 34; 35; 36; 37; 38; 39; 40; 41; 42; 43; 44; 45; 46; 47; 48; 49; 50]);
@@ -90,54 +85,4 @@ trainedClassifier.predictFcn = @(x) svmPredictFcn(predictorExtractionFcn(x));
 
 % Add additional fields to the result struct
 trainedClassifier.Classifier = classificationSVM;
-validationAccuracy = 0;
 
-
-%{
-return
-% Extract predictors and response
-% This code processes the data into the right shape for training the
-% model.
-% Convert input to table
-inputTable = array2table(trainingData, 'VariableNames', predictorNames);
-
-predictors = inputTable(:, predictorNames);
-response = responseData;
-
-% Set up holdout validation
-cvp = cvpartition(response, 'Holdout', 0.25);
-trainingPredictors = predictors(cvp.training, :);
-trainingResponse = response(cvp.training, :);
-
-% Train a classifier
-% This code specifies all the classifier options and trains the classifier.
-template = templateSVM(...
-    'Standardize', true,...
-    'GapTolerance',1e-2,...
-    'IterationLimit',1e8);
-classificationSVM = fitcecoc(...
-    trainingPredictors, ...
-    trainingResponse, ...,
-    'FitPosterior',true,...
-    'Learners', template, ...
-    'ClassNames', [1; 2; 3; 4; 5; 6; 7; 8; 9; 10; 11; 12; 13; 14; 15; 16; 17; 18; 19; 20; 21; 22; 23; 24; 25; 26; 27; 28; 29; 30; 31; 32; 33; 34; 35; 36; 37; 38; 39; 40; 41; 42; 43; 44; 45; 46; 47; 48; 49; 50]);
-
-% Create the result struct with predict function
-svmPredictFcn = @(x) predict(classificationSVM, x);
-validationPredictFcn = @(x) svmPredictFcn(x);
-
-% Add additional fields to the result struct
-
-
-% Compute validation predictions
-validationPredictors = predictors(cvp.test, :);
-validationResponse = response(cvp.test, :);
-[validationPredictions, validationScores] = validationPredictFcn(validationPredictors);
-
-% Compute validation accuracy
-correctPredictions = (validationPredictions == validationResponse);
-isMissing = isnan(validationResponse);
-correctPredictions = correctPredictions(~isMissing);
-validationAccuracy = sum(correctPredictions)/length(correctPredictions);
-
-%}
