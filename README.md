@@ -25,7 +25,7 @@ Altrimenti è possibile utilizzare **Test_Record.m** per registrare e classifica
 
 # File structure
 Di seguito la struttura dei file. La cartella `root` è **Scripts**, ma richiede la presenza del data-set ESC-50 e EXT rispettivamente per l'addestramento e il testing esteso. Tali folder devono essere poste al medesimo livello della cartella **Scripts**
-
+```
 ├── ESC-50
 │   ├── ...
 ├── EXT
@@ -59,7 +59,7 @@ Di seguito la struttura dei file. La cartella `root` è **Scripts**, ma richiede
 │   │   └── nomi-classi.mat
 │   ├── augmentation.m
 └───└── tNSE.m
-
+```
 
 
 ## Performance
