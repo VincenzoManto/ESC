@@ -26,8 +26,6 @@ bitSignum = NaN(1,9);
 bitLower = NaN(1,9);
 bitUpper = NaN(1,9);
 
-%m = mean(vectorDiff);
- 
 
 % Loop over the 9 values contained in the vectorDiff
 for nBit = 1:9

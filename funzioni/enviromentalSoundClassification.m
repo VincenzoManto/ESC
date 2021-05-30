@@ -15,13 +15,9 @@ function featuresVectorConc = enviromentalSoundClassification(soundSignal)
 features = NaN(1536,10);
 
 % Loop over the multilevel
-for nLevel = 1:10
-    
-    %disp("Livello " + nLevel)
-
-    
+for nLevel = 1:10  
     % Spiral pattern based feature extraction function
-    features(:,nLevel) = SpiralPat(soundSignal);
+    features(:,nLevel) = SouthSpiralPat(soundSignal);
     
     % Apply 2D M4 pooling to sound signal
     soundSignal = pooling2DM4(soundSignal);
@@ -30,9 +26,4 @@ end
 
 % Concatenate the features vector to create a new vector of features
 featuresVectorConc = featuresConcatenation(features);
-
-% Rescale the featuresVector to have the values between [0 1]
-% featuresVectorConc = rescale(featuresVectorConc);
-
-
 
